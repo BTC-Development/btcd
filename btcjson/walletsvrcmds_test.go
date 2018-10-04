@@ -1007,6 +1007,20 @@ func TestWalletSvrCmds(t *testing.T) {
 			},
 		},
 		{
+			name: "transfertransaction",
+			newCmd: func() (interface{}, error) {
+				return btcjson.NewCmd("transfertransaction", "1Address", "0000-0000")
+			},
+			staticCmd: func() interface{} {
+				return btcjson.NewTransferTransactionCmd("1Address", "0000-0000")
+			},
+			marshalled: `{"jsonrpc":"1.0","method":"transfertransaction","params":["1Address","0000-0000"],"id":1}`,
+			unmarshalled: &btcjson.TransferTransactionCmd{
+				Address: "1Address",
+				TxId:    "0000-0000",
+			},
+		},
+		{
 			name: "sendtoaddress",
 			newCmd: func() (interface{}, error) {
 				return btcjson.NewCmd("sendtoaddress", "1Address", 0.5)

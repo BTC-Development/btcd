@@ -526,6 +526,21 @@ type SendToAddressCmd struct {
 	CommentTo *string
 }
 
+// NewTransferTransactionCmd returns a new instance which can be used to issue a
+// transfertransaction JSON-RPC command.
+func NewTransferTransactionCmd(address string, txId string) *TransferTransactionCmd {
+	return &TransferTransactionCmd{
+		Address: address,
+		TxId:    txId,
+	}
+}
+
+// TransferTransactionCmd defines the transfertransaction JSON-RPC command.
+type TransferTransactionCmd struct {
+	Address string
+	TxId    string
+}
+
 // NewSendToAddressCmd returns a new instance which can be used to issue a
 // sendtoaddress JSON-RPC command.
 //
@@ -688,6 +703,7 @@ func init() {
 	MustRegisterCmd("move", (*MoveCmd)(nil), flags)
 	MustRegisterCmd("sendfrom", (*SendFromCmd)(nil), flags)
 	MustRegisterCmd("sendmany", (*SendManyCmd)(nil), flags)
+	MustRegisterCmd("transfertransaction", (*TransferTransactionCmd)(nil), flags)
 	MustRegisterCmd("sendtoaddress", (*SendToAddressCmd)(nil), flags)
 	MustRegisterCmd("setaccount", (*SetAccountCmd)(nil), flags)
 	MustRegisterCmd("settxfee", (*SetTxFeeCmd)(nil), flags)
